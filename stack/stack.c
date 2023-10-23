@@ -29,7 +29,7 @@ void push(Stack *stack, stack_entry value) {
     *(stack->data + stack->top) = value;
 }
 void stkcpy(Stack *stack1, Stack *stack2) {
-    free(stack1);
+    destroy(stack1);
     stack1 = (Stack*) malloc(sizeof(Stack));
     stack1->top = stack2->top;
     stack1->capacity = stack2->capacity;
@@ -46,6 +46,37 @@ void expand(Stack *stack) {
         *(stack->data + i) = *(old_data + i);
     }
     free(old_data);
+}
+int blncchk(char *target) {
+    Stack* stack = newStack();
+    char opened[] = {'(', '{', '[', '<'};
+    char closed[] = {')', '}', ']', '>'};
+    for(int i = 0; *(target + i) != '\0'; i++) {
+        char current = *(target + i);
+        for(int j = 0; j < 4; j++) {
+            if(current == opened[j]) {
+                push(stack, opened[j]);
+                break;
+            }
+        }
+        for(int j = 0; j < 4; j++) {
+            if(current == closed[j]) {
+                if(opened[j] == top(stack)) {
+                    pop(stack);
+                    break;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+    }
+    if(isEmpty(stack)) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 void destroy(Stack *stack) {
     free(stack->data);
