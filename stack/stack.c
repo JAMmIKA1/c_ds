@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "stack.h"
 
 Stack* newStack() {
@@ -34,9 +35,7 @@ void stkcpy(Stack *stack1, Stack *stack2) {
     stack1->top = stack2->top;
     stack1->capacity = stack2->capacity;
     stack1->data = (stack_entry*) malloc(sizeof(stack_entry) * stack1->capacity);
-    for(int i = 0; i <= stack2->top; i++) {
-        *(stack1->data + i) = *(stack2->data + i);
-    }
+    memcpy(stack1->data, stack2->data, sizeof(stack_entry)*(stack1->top + 1));
 }
 void expand(Stack *stack) {
     stack_entry *old_data = stack->data;

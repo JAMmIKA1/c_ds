@@ -11,6 +11,7 @@ typedef struct {
 Stack* newStack();
 stack_entry pop(Stack *stack);
 stack_entry top(Stack *stack);
+stack_entry returnFirst(Stack *stack);
 void push(Stack *stack, stack_entry data);
 void stkcpy(Stack *stack1, Stack *stack2);
 void expand(Stack *stack);
