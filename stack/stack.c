@@ -41,9 +41,7 @@ void stkExpand(Stack *stack) {
     stack_entry *old_data = stack->data;
     stack->capacity *= 2;
     stack->data = (stack_entry*) malloc(sizeof(stack_entry) * stack->capacity);
-    for(int i = 0; i <= stack->top; i++) {
-        *(stack->data + i) = *(old_data + i);
-    }
+    memcpy(stack->data, old_data, sizeof(stack_entry)*(stack->top + 1));
     free(old_data);
 }
 int blncchk(char *target) {
