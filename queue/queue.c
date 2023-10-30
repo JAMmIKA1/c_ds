@@ -6,9 +6,10 @@ Queue* newQueue() {
     Queue* new_queue = (Queue*) malloc(sizeof(Queue));
     new_queue->capacity = 10;
     new_queue->front = 0;
-    new_queue->rear = -1;
+    new_queue->rear = new_queue->capacity - 1;
     new_queue->size = 0;
     new_queue->data = (queue_entry*) malloc(sizeof(queue_entry)*new_queue->capacity);
+    memset(new_queue->data, 0, sizeof(queue_entry)*new_queue->capacity);
     return new_queue;
 }
 queue_entry dequeue(Queue* target) {
@@ -57,6 +58,7 @@ void quecpy(Queue* dst, Queue* src) {
 void expand(Queue* target) {
     target->capacity *= 2;
     queue_entry* new_data = (queue_entry*) malloc(sizeof(queue_entry)*target->capacity);
+    memset(new_data, 0, sizeof(queue_entry)*target->capacity);
     for(int i = 0; i < target->size; i++) {
         new_data[i] = target->data[(target->front + i) % (target->capacity/2)];
     }
@@ -77,7 +79,7 @@ int isEmpty(Queue* target) {
     return 0;
 }
 int isFull(Queue* target) {
-    if(target->size + 1 >= target->capacity) {
+    if(target->size >= target->capacity) {
         return 1;
     }
     return 0;
