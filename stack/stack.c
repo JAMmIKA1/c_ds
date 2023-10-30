@@ -10,34 +10,34 @@ Stack* newStack() {
     return new_stack;
 }
 stack_entry pop(Stack *stack) {
-    if(isEmpty(stack)) {
+    if(stkIsEmpty(stack)) {
         return -1;
     }
     stack->top--;
     return *(stack->data + stack->top + 1);
 }
 stack_entry top(Stack *stack) {
-    if(isEmpty(stack)) {
+    if(stkIsEmpty(stack)) {
         return -1;
     }
     return *(stack->data + stack->top);
 }
 void push(Stack *stack, stack_entry value) {
-    if(isFull(stack)) {
-        expand(stack);
+    if(stkIsFull(stack)) {
+        stkExpand(stack);
     }
     stack->top++;
     *(stack->data + stack->top) = value;
 }
 void stkcpy(Stack *stack1, Stack *stack2) {
-    destroy(stack1);
+    stkDestroy(stack1);
     stack1 = (Stack*) malloc(sizeof(Stack));
     stack1->top = stack2->top;
     stack1->capacity = stack2->capacity;
     stack1->data = (stack_entry*) malloc(sizeof(stack_entry) * stack1->capacity);
     memcpy(stack1->data, stack2->data, sizeof(stack_entry)*(stack1->top + 1));
 }
-void expand(Stack *stack) {
+void stkExpand(Stack *stack) {
     stack_entry *old_data = stack->data;
     stack->capacity *= 2;
     stack->data = (stack_entry*) malloc(sizeof(stack_entry) * stack->capacity);
@@ -70,23 +70,23 @@ int blncchk(char *target) {
             }
         }
     }
-    if(isEmpty(stack)) {
+    if(stkIsEmpty(stack)) {
         return 1;
     }
     else {
         return 0;
     }
 }
-void destroy(Stack *stack) {
+void stkDestroy(Stack *stack) {
     free(stack->data);
     free(stack);
 }
-int isEmpty(Stack *stack) {
+int stkIsEmpty(Stack *stack) {
     return (stack->top < 0);
 }
-int isFull(Stack *stack) {
+int stkIsFull(Stack *stack) {
     return (stack->top >= stack->capacity - 1);
 }
-int size(Stack *stack) {
+size_t stkSize(Stack *stack) {
     return (stack->top + 1);
 }

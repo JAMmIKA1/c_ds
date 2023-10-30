@@ -4,7 +4,7 @@
 
 stack_entry First(Stack stack) {
     stack_entry x;
-    while(!isEmpty(&stack)) {
+    while(!stkIsEmpty(&stack)) {
         x = pop(&stack);
     }
     return x;
@@ -18,25 +18,25 @@ void destroyStack(Stack *stack) {
 void copyStack(Stack stack, Stack *target) {
     Stack *temp = malloc(sizeof(Stack));
     temp = newStack();
-    destroy(target);
+    stkDestroy(target);
     target = newStack();
-    while(!isEmpty(&stack)) {
+    while(!stkIsEmpty(&stack)) {
         push(temp, pop(&stack));
     }
-    while(!isEmpty(temp)) {
+    while(!stkIsEmpty(temp)) {
         push(target, pop(temp));
     }
 }
 int sizeStack(Stack stack) {
     int x = 0;
-    while(!isEmpty(&stack)) {
+    while(!stkIsEmpty(&stack)) {
         pop(&stack);
         x++;
     }
     return x;
 }
 void printStack(Stack stack) {
-    while(!isEmpty(&stack)) {
+    while(!stkIsEmpty(&stack)) {
         printf("%d ", pop(&stack));
     }
 }
