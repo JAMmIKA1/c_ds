@@ -13,7 +13,7 @@ Queue* newQueue() {
     return new_queue;
 }
 queue_entry dequeue(Queue* target) {
-    if(isEmpty(target)) {
+    if(qIsEmpty(target)) {
         return -1;
     }
     target->size--;
@@ -22,13 +22,13 @@ queue_entry dequeue(Queue* target) {
     return value;
 }
 queue_entry front(Queue* target) {
-    if(isEmpty(target)) {
+    if(qIsEmpty(target)) {
         return -1;
     }
     return target->data[target->front];
 }
 queue_entry rear(Queue* target) {
-    if(isEmpty(target)) {
+    if(qIsEmpty(target)) {
         return -1;
     }
     return target->data[target->rear];
@@ -37,8 +37,8 @@ size_t qsize(Queue* target) {
     return target->size;
 }
 void enqueue(Queue* target, queue_entry value) {
-    if(isFull(target)) {
-        expand(target);
+    if(qIsFull(target)) {
+        qExpand(target);
     }
     target->size++;
     target->rear = (target->rear + 1) % target->capacity;
@@ -46,7 +46,7 @@ void enqueue(Queue* target, queue_entry value) {
     return;
 }
 void quecpy(Queue* dst, Queue* src) {
-    qdestroy(dst);
+    qDestroy(dst);
     dst = (Queue*) malloc(sizeof(Queue));
     dst->capacity = src->capacity;
     dst->front = src->front;
@@ -55,7 +55,7 @@ void quecpy(Queue* dst, Queue* src) {
     dst->data = (queue_entry*) malloc(sizeof(queue_entry)*dst->capacity);
     memcpy(dst->data, src->data, sizeof(queue_entry)*src->size);
 }
-void expand(Queue* target) {
+void qExpand(Queue* target) {
     target->capacity *= 2;
     queue_entry* new_data = (queue_entry*) malloc(sizeof(queue_entry)*target->capacity);
     memset(new_data, 0, sizeof(queue_entry)*target->capacity);
@@ -67,18 +67,18 @@ void expand(Queue* target) {
     free(target->data);
     target->data = new_data;
 }
-void qdestroy(Queue* target) {
+void qDestroy(Queue* target) {
     free(target->data);
     free(target);
 }
 
-int isEmpty(Queue* target) {
+int qIsEmpty(Queue* target) {
     if(target->size == 0) {
         return 1;
     }
     return 0;
 }
-int isFull(Queue* target) {
+int qIsFull(Queue* target) {
     if(target->size >= target->capacity) {
         return 1;
     }

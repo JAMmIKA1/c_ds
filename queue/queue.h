@@ -18,9 +18,9 @@ queue_entry rear(Queue* target);
 size_t qsize(Queue* target);
 void enqueue(Queue* queue, queue_entry value);
 void quecpy(Queue* dst, Queue* src);
-void expand(Queue* target);
-void qdestroy(Queue* target);
-int isEmpty(Queue* target);
-int isFull(Queue* target);
+void qExpand(Queue* target);
+void qDestroy(Queue* target);
+int qIsEmpty(Queue* target);
+int qIsFull(Queue* target);
 
 #endif // !QUEUE_H
