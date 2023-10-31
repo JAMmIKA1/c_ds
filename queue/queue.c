@@ -71,7 +71,6 @@ void qDestroy(Queue* target) {
     free(target->data);
     free(target);
 }
-
 int qIsEmpty(Queue* target) {
     if(target->size == 0) {
         return 1;

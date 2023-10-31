@@ -2,9 +2,9 @@
 #define STACK_H
 #include <stdlib.h>
 
-typedef char stack_entry;
+typedef int stack_entry;
 typedef struct {
-    size_t top;
+    long top;
     size_t capacity;
     stack_entry *data;
 } Stack;
@@ -20,5 +20,6 @@ void stkExpand(Stack *stack);
 void stkDestroy(Stack *stack);
 int stkIsEmpty(Stack *stack);
 int stkIsFull(Stack *stack);
+int blncchk(char *target);
 
 #endif // !STACK_H

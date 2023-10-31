@@ -2,7 +2,7 @@
 #define QUEUE_H
 #include <stdlib.h>
 
-typedef char queue_entry;
+typedef int queue_entry;
 typedef struct {
     size_t front;
     size_t rear;

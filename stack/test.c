@@ -2,6 +2,38 @@
 #include <stdlib.h>
 #include "stack.h"
 
+void printStack(Stack stack);
+int sizeStack(Stack stack);
+void copyStack(Stack stack, Stack *target);
+void destroyStack(Stack *stack);
+stack_entry Last(Stack stack);
+stack_entry First(Stack stack);
+
+int main() {
+    Stack* group_ids = newStack();
+    Stack* group_codes = newStack();
+    Stack* section_codes = newStack();
+
+    for(int i = 1 ; i <= 10; i++) {
+        push(group_ids, i*10+ i*i + i+i/2);
+    }
+    printf("Group IDs:\t");
+    printStack(*group_ids);
+    while(!stkIsEmpty(group_ids)) {
+        push(group_codes, top(group_ids)%10);
+        push(section_codes, pop(group_ids)/10);
+    }
+    printf("\nSection codes:\t");
+    printStack(*section_codes);
+    printf("\nGroup codes:\t");
+    printStack(*group_codes);
+}
+
+void printStack(Stack stack) {
+    while(!stkIsEmpty(&stack)) {
+        printf("%d ", pop(&stack));
+    }
+}
 stack_entry First(Stack stack) {
     stack_entry x;
     while(!stkIsEmpty(&stack)) {
@@ -34,18 +66,4 @@ int sizeStack(Stack stack) {
         x++;
     }
     return x;
-}
-void printStack(Stack stack) {
-    while(!stkIsEmpty(&stack)) {
-        printf("%d ", pop(&stack));
-    }
-}
-int main() {
-    Stack* stack = newStack();
-    Stack* tmp = newStack();
-    for(int i = 0; i < 10; i++) {
-        push(stack, i*i);
-    }
-    stkcpy(tmp, stack);
-    printStack(*tmp);
 }

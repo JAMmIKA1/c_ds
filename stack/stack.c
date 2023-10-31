@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "stack.h"
 
@@ -63,15 +64,18 @@ int blncchk(char *target) {
                     break;
                 }
                 else {
+                    stkDestroy(stack);
                     return 0;
                 }
             }
         }
     }
     if(stkIsEmpty(stack)) {
+        stkDestroy(stack);
         return 1;
     }
     else {
+        stkDestroy(stack);
         return 0;
     }
 }
