@@ -88,6 +88,6 @@ int stkIsEmpty(Stack *stack) {
 int stkIsFull(Stack *stack) {
     return (stack->top >= stack->capacity - 1);
 }
-size_t stkSize(Stack *stack) {
+long stkSize(Stack *stack) {
     return (stack->top + 1);
 }
