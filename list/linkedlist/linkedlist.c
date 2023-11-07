@@ -32,13 +32,16 @@ list_entry getNth(Linkedlist* list, unsigned long index) {
     return -1;
 }
 list_entry getLast(Linkedlist* list) {
-    if(list->tail) {
-        return list->tail->data;
+    if(listIsEmpty(list)) {
+        return -1;
     }
-    return -1;
+    return list->tail->data;
 }
 void removeNth(Linkedlist* list, unsigned long index) {
     node *target, *tmp;
+    if(listIsEmpty(list)) {
+        return;
+    }
     if(index == 0) {
         target = list->head;
         list->head = list->head->next;
@@ -78,6 +81,7 @@ void insert(Linkedlist* list, list_entry value, unsigned long index) {
         return;
     }
     node* tmp = getNthAddr(list, index - 1);
+    if(tmp == 0 || tmp->next == 0) return;
     new_node = newNode(value);
     new_node->next = tmp->next;
     tmp->next = new_node;
