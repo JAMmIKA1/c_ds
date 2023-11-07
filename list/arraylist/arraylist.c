@@ -25,6 +25,7 @@ int listIsFull(Arraylist list) {
 }
 list_entry getNth(Arraylist list, long index) {
     assert(!"Invalid index!" || ((index < list.length) && (index >= 0)));
+    // if(!((index < list.length) && (index >= 0))) return -1;
     return list.data[index];
 }
 long search(Arraylist list, list_entry value) {
@@ -44,6 +45,7 @@ void insert(Arraylist* list, long index, list_entry value) {
         expandList(list);
     }
     assert(!"Invalid index!" || ((index <= list->length) && (index >= 0)));
+    // if(!((index <= list->length) && (index >= 0))) return;
     for(int i = list->length++; i > index; i--) {
         list->data[i] = list->data[i-1];
     }
@@ -57,10 +59,12 @@ void pushBack(Arraylist* list, list_entry value) {
 }
 list_entry removeNth(Arraylist* list, long index) {
     assert(!"Invalid index!" || ((index < list->length) && (index >= 0)));
+    // if(!((index < list->length) && (index >= 0))) return -1;
     list_entry removed = list->data[index];
     for(int i = index; i < list->length - 1; i++) {
         list->data[i] = list->data[i+1];
     }
+    list->length--;
     return removed;
 }
 list_entry popBack(Arraylist* list) {
